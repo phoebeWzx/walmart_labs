@@ -57,5 +57,5 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="com.walmart.labs.services.reservation.Request.ReserveRequestHandlerTest" name="ReserveRequestHandler" time="0"/>
+  <testcase classname="com.walmart.labs.services.reservation.Request.ReserveRequestHandlerTest" name="testReserveRequestHandler" time="0"/>
 </testsuite>

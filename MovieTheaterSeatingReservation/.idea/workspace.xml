@@ -72,7 +72,7 @@
     <configuration name="ReservationService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.walmart.labs.services.reservation.ReservationService" />
       <module name="MovieTheaterSeatingReservation" />
-      <option name="PROGRAM_PARAMETERS" value="-i input.txt -o output.txt" />
+      <option name="PROGRAM_PARAMETERS" value="-i input_test.txt -o output_test.txt" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.walmart.labs.services.reservation.*" />
@@ -157,7 +157,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570416481701</updated>
-      <workItem from="1570416486384" duration="43596000" />
+      <workItem from="1570416486384" duration="49592000" />
     </task>
     <servers />
   </component>

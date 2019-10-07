@@ -57,5 +57,5 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="com.walmart.labs.services.reservation.Cotrollor.AllocatorTest" name="allocate" time="0.001"/>
+  <testcase classname="com.walmart.labs.services.reservation.Cotrollor.AllocatorTest" name="testAllocate" time="0.001"/>
 </testsuite>

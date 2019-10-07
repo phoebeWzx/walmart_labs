@@ -38,4 +38,6 @@ public class SeatRow extends TheaterEntity<String>{
         return this.row.size();
     }
 
+    public int getAvailable() {return this.capacity - getSize();}
+
 }

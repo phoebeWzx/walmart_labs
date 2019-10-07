@@ -48,28 +48,27 @@ public class Allocator {
         int downRowId = seatMap.getDownRowId();
 
         int curRowId = startRowId;
+        SeatRow curRow = seatMap.getSeatRow(curRowId);
         // if startRow is full, choose the nearer row
-        if (startRow.isFull()) {
-            curRowId = pickNearRow(upRowId, downRowId, startRowId, seatMap.getRows());
+
+
+        if (curRow.getAvailable() < numberOfRequest) {
+            curRowId = getNextRowID(curRowId, startRowId, seatMap, numberOfRequest);
+            curRow = seatMap.getSeatRow(curRowId);
+
+            // if current row out of boundary, change to the other side
+            if (seatMap.getUpRowId() >= seatMap.getRows()) {
+                curRowId = seatMap.getDownRowId();
+            }
+            if (seatMap.getDownRowId() < 0) {
+                curRowId = seatMap.getUpRowId();
+            }
         }
 
-        while (numberOfRequest > 0 && seatMap.getAvailableSeat() >= numberOfRequest) {
+        while (numberOfRequest > 0 && curRow.getAvailable() >= numberOfRequest) {
             // get current row and assign the seat
-            SeatRow curRow = seatMap.getSeatRow(curRowId);
+            curRow = seatMap.getSeatRow(curRowId);
             assignSeat(curRowId, startRowId, assignedSeat, seatMap);
-
-            // if current row is full, move the up row to upper row or move the down to downer row
-            if (curRow.isFull()) {
-                curRowId = getNextRowID(curRowId, startRowId, seatMap);
-
-                // if current row out of boundary, change to the other side
-                if (seatMap.getUpRowId() >= seatMap.getRows()) {
-                    curRowId = seatMap.getDownRowId();
-                }
-                if (seatMap.getDownRowId() < 0) {
-                    curRowId = seatMap.getUpRowId();
-                }
-            }
 
             // update the number of request
             numberOfRequest--;
@@ -85,16 +84,20 @@ public class Allocator {
     * @Param: [curRowId, startRowId, seatMap]
     * @return: int
     */
-    private int getNextRowID(int curRowId, int startRowId, SeatMap seatMap) {
-        int nextRowId = 0;
+    private int getNextRowID(int curRowId, int startRowId, SeatMap seatMap,int numberOfRequest ) {
+        int nextRowId = curRowId;
         // curRow is up pointer
         if (curRowId > startRowId) {
-            nextRowId = curRowId + 1;
-            seatMap.setUpRowId(nextRowId);
+            while (seatMap.getSeatRow(nextRowId).getAvailable() < numberOfRequest) {
+                nextRowId = nextRowId + 1;
+                seatMap.setUpRowId(nextRowId);
+            }
         } else {
             // else is the down pointer
-            nextRowId = curRowId - 1;
-            seatMap.setDownRowId(nextRowId);
+            while (seatMap.getSeatRow(nextRowId).getAvailable() < numberOfRequest) {
+                nextRowId = nextRowId - 1;
+                seatMap.setDownRowId(nextRowId);
+            }
         }
         return nextRowId;
     }
@@ -118,23 +121,6 @@ public class Allocator {
             row.addFirstSeat(seat);
             assignedSeat.add(seat);
         }
-    }
-
-    /**
-    * @Description: pick the next good view row, which is the nearest of 2/3 row
-    * @Param: [up, down, start, totalRows]
-    * @return: int
-    */
-    private int pickNearRow(int up, int down, int start, int totalRows) {
-        if (up >= totalRows) {
-            return down;
-        }
-        if (down < 0) {
-            return up;
-        }
-        int upDistance = Math.abs(up - start);
-        int downDistance = Math.abs(down - start);
-        return upDistance > downDistance ? down : up;
     }
 
 }
