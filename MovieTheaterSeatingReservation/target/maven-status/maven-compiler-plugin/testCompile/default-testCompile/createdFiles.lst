@@ -1,0 +1,4 @@
+com/walmart/labs/services/reservation/Response/ReserveResponseHandlerTest.class
+com/walmart/labs/services/reservation/Request/ReserveRequestHandlerTest.class
+com/walmart/labs/services/reservation/Cotrollor/AllocatorTest.class
+com/walmart/labs/services/reservation/Utils/IOFileUtilTest.class
